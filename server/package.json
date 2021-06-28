@@ -13,5 +13,10 @@
     "Backend"
   ],
   "author": "Divine Orji",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.18.0",
+    "harperive": "^2.0.1"
+  }
 }
