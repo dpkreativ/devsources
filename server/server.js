@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   res.send({ Welcome_Message: "Welcome to Devsources API" });
 });
 
-app.listen(process.env.PORT, (err, addr) => {
+app.listen(process.env.PORT, `0.0.0.0`, (err, addr) => {
   if (err) {
     app.log.error(err);
     process.exit(1);
