@@ -49,7 +49,7 @@ I want to add the following functions:
 
 ## Author
 
-- Website = [Divine Orji](https://dpkreativ.vercel.app)
-- Twitter = [@dpkreativ](https://twitter.com/dpkreativ)
+- Website: [Divine Orji](https://dpkreativ.vercel.app)
+- Twitter: [@dpkreativ](https://twitter.com/dpkreativ)
 
 ## Acknowledgements
