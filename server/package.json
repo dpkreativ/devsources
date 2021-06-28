@@ -1,0 +1,17 @@
+{
+  "name": "devsources-backend",
+  "version": "1.0.0",
+  "description": "Backend code for Devsources project written with NodeJS, Fastify, and HarperDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NodeJS",
+    "Fastify",
+    "HarperDB",
+    "Backend"
+  ],
+  "author": "Divine Orji",
+  "license": "MIT"
+}
