@@ -36,7 +36,7 @@ I learned how to build an API with NodeJS and Fastify, and how to store data usi
 
 ### Continued development
 
-Currently the API can only add new resources and display all the resources currently on the database.
+Currently the API can only add new resources and get all the resources currently on the database.
 I want to add the following functions:
 
 - To login/signup
