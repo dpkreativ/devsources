@@ -5,7 +5,7 @@ require("dotenv").config();
 app.register(require("./src/routes/resource"));
 
 app.get("/", (req, res) => {
-  res.send({ hello: "Welcome" });
+  res.send({ Welcome_Message: "Welcome to Devsources API" });
 });
 
 app.listen(process.env.PORT, (err, addr) => {
