@@ -2,6 +2,8 @@ const app = require("fastify")({ logger: true });
 
 require("dotenv").config();
 
+app.register(require("./src/routes/resource"));
+
 app.get("/", (req, res) => {
   res.send({ hello: "Welcome" });
 });
