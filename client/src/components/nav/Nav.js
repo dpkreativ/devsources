@@ -5,7 +5,7 @@ const CustomNav = styled.nav`
   padding: 1rem;
 
   h1 {
-    color: #021e1e;
+    color: var(--primary-color);
   }
 `;
 
