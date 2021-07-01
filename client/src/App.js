@@ -1,7 +1,7 @@
 import Button from "./components/button/Button";
 import Nav from "./components/nav/Nav";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Nav />
@@ -10,6 +10,6 @@ function App() {
       </section>
     </div>
   );
-}
+};
 
 export default App;
