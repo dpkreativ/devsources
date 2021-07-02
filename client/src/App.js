@@ -1,7 +1,9 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./components/button/Button";
 import ResourceCard from "./components/card/ResourceCard";
 import Nav from "./components/nav/Nav";
+import Modal from "./components/modal/Modal";
 
 const Container = styled.div`
   padding: 1rem;
@@ -23,21 +25,30 @@ const CustomSection = styled.section`
 `;
 
 const App = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
   return (
-    <Container className="App">
-      <Nav />
-      <CustomSection>
-        <Button>Suggest Resource</Button>
-      </CustomSection>
-      <CustomSection>
-        <h2 className="section-heading">Suggestions:</h2>
-        <ResourceCard
-          title="FreeCodeCamp"
-          description="A free learning platform for developers"
-          link="https://freecodecamp.org"
-        />
-      </CustomSection>
-    </Container>
+    <>
+      <Container className="App">
+        <Nav />
+        <CustomSection>
+          <Button onClick={openModal}>Suggest Resource</Button>
+          <Modal showModal={showModal} setShowModal={setShowModal} />
+        </CustomSection>
+        <CustomSection>
+          <h2 className="section-heading">Suggestions:</h2>
+          <ResourceCard
+            title="FreeCodeCamp"
+            description="A free learning platform for developers"
+            link="https://freecodecamp.org"
+          />
+        </CustomSection>
+      </Container>
+    </>
   );
 };
 
