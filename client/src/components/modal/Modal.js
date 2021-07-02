@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
@@ -16,9 +17,11 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 800px;
-  height: 500px;
-  margin: 1rem;
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+  min-height: 500px;
+  margin: 0.5rem;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
@@ -87,7 +90,7 @@ const Modal = ({ showModal, setShowModal }) => {
     return () => document.removeEventListener("keydown", keyPress);
   });
 
-  return (
+  return ReactDOM.createPortal(
     <>
       {showModal ? (
         <Background ref={modalRef} onClick={closeModal}>
@@ -105,7 +108,8 @@ const Modal = ({ showModal, setShowModal }) => {
           </animated.div>
         </Background>
       ) : null}
-    </>
+    </>,
+    document.getElementById("portal")
   );
 };
 
