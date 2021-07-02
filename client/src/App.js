@@ -5,6 +5,8 @@ import Nav from "./components/nav/Nav";
 
 const Container = styled.div`
   padding: 1rem;
+  max-width: 1024px;
+  margin: auto;
 
   @media screen and (min-width: 800px) {
     padding: 1rem 3rem;
