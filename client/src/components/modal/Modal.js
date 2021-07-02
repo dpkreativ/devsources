@@ -67,10 +67,30 @@ const Modal = ({ showModal, setShowModal }) => {
     transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
   });
 
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      setShowModal(false);
+    }
+  };
+
+  const keyPress = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        setShowModal(false);
+      }
+    },
+    [setShowModal, showModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", keyPress);
+    return () => document.removeEventListener("keydown", keyPress);
+  });
+
   return (
     <>
       {showModal ? (
-        <Background>
+        <Background ref={modalRef} onClick={closeModal}>
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalContent>
