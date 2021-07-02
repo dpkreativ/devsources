@@ -1,0 +1,9 @@
+.App {
+  padding: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  .App {
+    padding: 1rem 3rem;
+  }
+}
