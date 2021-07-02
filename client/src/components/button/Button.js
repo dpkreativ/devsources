@@ -10,8 +10,8 @@ const CustomButton = styled.button`
   border-radius: 1rem;
 `;
 
-const Button = ({ children }) => {
-  return <CustomButton>{children}</CustomButton>;
+const Button = ({ children, onClick }) => {
+  return <CustomButton onClick={onClick}>{children}</CustomButton>;
 };
 
 export default Button;
