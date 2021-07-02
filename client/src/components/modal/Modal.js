@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
@@ -56,20 +57,32 @@ const CloseModalButton = styled(MdClose)`
 `;
 
 const Modal = ({ showModal, setShowModal }) => {
+  const modalRef = useRef();
+
+  const animation = useSpring({
+    config: {
+      duration: 250,
+    },
+    opacity: showModal ? 1 : 0,
+    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
+  });
+
   return (
     <>
       {showModal ? (
         <Background>
-          <ModalWrapper showModal={showModal}>
-            <ModalContent>
-              <h1>Modal</h1>
-              <p>This is a modal</p>
-            </ModalContent>
-            <CloseModalButton
-              aria-label="Close modal"
-              onClick={() => setShowModal((prev) => !prev)}
-            />
-          </ModalWrapper>
+          <animated.div style={animation}>
+            <ModalWrapper showModal={showModal}>
+              <ModalContent>
+                <h1>Modal</h1>
+                <p>This is a modal</p>
+              </ModalContent>
+              <CloseModalButton
+                aria-label="Close modal"
+                onClick={() => setShowModal((prev) => !prev)}
+              />
+            </ModalWrapper>
+          </animated.div>
         </Background>
       ) : null}
     </>
