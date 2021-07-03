@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import Button from "./components/button/Button";
 import ResourceCard from "./components/card/ResourceCard";
 import Nav from "./components/nav/Nav";
@@ -26,6 +27,17 @@ const CustomSection = styled.section`
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
+  const [allResources, setAllResources] = useState([]);
+
+  // const baseURL = `https://devsources-api.herokuapp.com/`;
+
+  const getResources = () => {
+    axios
+      .get(`https://devsources-api.herokuapp.com/resources`)
+      .then((res) => setAllResources(res))
+      .then(console.log(allResources))
+      .catch((err) => console.log(err));
+  };
 
   const openModal = () => {
     setShowModal((prev) => !prev);
