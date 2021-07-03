@@ -1,116 +1,106 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
-import { useSpring, animated } from "react-spring";
+import React from "react";
 import styled from "styled-components";
-import { MdClose } from "react-icons/md";
+import "wicg-inert";
 
-const Background = styled.div`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+import Portal from "../portal/Portal";
+
+const Backdrop = styled.div`
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
+  background-color: rgba(51, 51, 51, 0.3);
+  backdrop-filter: blur(1px);
+  opacity: 0;
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 200ms;
   display: flex;
-  justify-content: center;
   align-items: center;
-`;
-
-const ModalWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  min-width: 300px;
-  min-height: 500px;
-  margin: 0.5rem;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  color: #000;
-  position: relative;
-  z-index: 10;
-  border-radius: 10px;
-`;
-
-const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  line-height: 1.8;
-  color: var(--primary-color);
-  p {
-    margin-bottom: 1rem;
+
+  & .modal-content {
+    transform: translateY(100px);
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
   }
-  button {
-    padding: 10px 24px;
-    background: #141414;
-    color: #fff;
-    border: none;
-  }
-`;
 
-const CloseModalButton = styled(MdClose)`
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  z-index: 10;
-`;
+  &.active {
+    transition-duration: 250ms;
+    transition-delay: 0ms;
+    opacity: 1;
 
-const Modal = ({ showModal, setShowModal }) => {
-  const modalRef = useRef();
-
-  const animation = useSpring({
-    config: {
-      duration: 250,
-    },
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
-  });
-
-  const closeModal = (e) => {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
+    & .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+      transition-delay: 150ms;
+      transition-duration: 350ms;
     }
-  };
+  }
+`;
 
-  const keyPress = useCallback(
-    (e) => {
-      if (e.key === "Escape" && showModal) {
-        setShowModal(false);
+const Content = styled.div`
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 50px;
+  min-width: 50px;
+  max-height: 80%;
+  max-width: 80%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  border-radius: 2px;
+`;
+
+export default function Modal(props) {
+  const [active, setActive] = React.useState(false);
+  const { open, onClose, locked } = props;
+  const backdrop = React.useRef(null);
+
+  React.useEffect(() => {
+    const { current } = backdrop;
+
+    const transitionEnd = () => setActive(open);
+
+    const keyHandler = (e) =>
+      !locked && [27].indexOf(e.which) >= 0 && onClose();
+
+    const clickHandler = (e) => !locked && e.target === current && onClose();
+
+    if (current) {
+      current.addEventListener("transitionend", transitionEnd);
+      current.addEventListener("click", clickHandler);
+      window.addEventListener("keyup", keyHandler);
+    }
+
+    if (open) {
+      window.setTimeout(() => {
+        document.activeElement.blur();
+        setActive(open);
+        document.querySelector("#root").setAttribute("inert", "true");
+      }, 10);
+    }
+
+    return () => {
+      if (current) {
+        current.removeEventListener("transitionend", transitionEnd);
+        current.removeEventListener("click", clickHandler);
       }
-    },
-    [setShowModal, showModal]
+
+      document.querySelector("#root").removeAttribute("inert");
+      window.removeEventListener("keyup", keyHandler);
+    };
+  }, [open, locked, onClose]);
+
+  return (
+    <React.Fragment>
+      {(open || active) && (
+        <Portal className="modal-portal">
+          <Backdrop ref={backdrop} className={active && open && "active"}>
+            <Content className="modal-content">{props.children}</Content>
+          </Backdrop>
+        </Portal>
+      )}
+    </React.Fragment>
   );
-
-  useEffect(() => {
-    document.addEventListener("keydown", keyPress);
-    return () => document.removeEventListener("keydown", keyPress);
-  });
-
-  return ReactDOM.createPortal(
-    <>
-      {showModal ? (
-        <Background ref={modalRef} onClick={closeModal}>
-          <animated.div style={animation}>
-            <ModalWrapper showModal={showModal}>
-              <ModalContent>
-                <h1>Modal</h1>
-                <p>This is a modal</p>
-              </ModalContent>
-              <CloseModalButton
-                aria-label="Close modal"
-                onClick={() => setShowModal((prev) => !prev)}
-              />
-            </ModalWrapper>
-          </animated.div>
-        </Background>
-      ) : null}
-    </>,
-    document.getElementById("portal")
-  );
-};
-
-export default Modal;
+}
