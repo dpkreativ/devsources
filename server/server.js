@@ -1,6 +1,8 @@
 const app = require("fastify")({ logger: true });
+const cors = require("cors");
 
 require("dotenv").config();
+app.use(cors());
 
 app.register(require("./src/routes/resource"));
 
