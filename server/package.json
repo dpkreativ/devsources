@@ -20,11 +20,9 @@
   "author": "Divine Orji",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "fastify": "^3.18.0",
     "fastify-cors": "^6.0.1",
-    "harperive": "^2.0.1",
-    "middie": "^5.3.0"
+    "harperive": "^2.0.1"
   }
 }
