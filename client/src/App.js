@@ -37,7 +37,9 @@ const App = () => {
         <Nav />
         <CustomSection>
           <Button onClick={openModal}>Suggest Resource</Button>
-          <Modal showModal={showModal} setShowModal={setShowModal} />
+          <Modal onClose={openModal} open={showModal}>
+            Hello, testing
+          </Modal>
         </CustomSection>
         <CustomSection>
           <h2 className="section-heading">Suggestions:</h2>
