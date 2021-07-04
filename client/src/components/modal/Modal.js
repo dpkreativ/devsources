@@ -43,8 +43,8 @@ const Content = styled.div`
   position: relative;
   padding: 20px;
   box-sizing: border-box;
-  min-height: 50px;
-  min-width: 50px;
+  min-height: 200px;
+  min-width: 300px;
   max-height: 80%;
   max-width: 80%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
