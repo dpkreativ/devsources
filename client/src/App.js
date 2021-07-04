@@ -21,7 +21,8 @@ const CustomSection = styled.section`
 
   .section-heading {
     color: var(--primary-color);
-    padding: 1rem;
+    padding: 0 1rem;
+    margin-top: 2rem;
   }
 `;
 
