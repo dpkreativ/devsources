@@ -11,6 +11,10 @@ const CustomCard = styled.div`
     margin-bottom: 0.5rem;
     color: var(--secondary-color);
   }
+
+  a {
+    overflow-wrap: break-word;
+  }
 `;
 
 const ResourceCard = ({ title, description, link }) => {
@@ -18,9 +22,9 @@ const ResourceCard = ({ title, description, link }) => {
     <CustomCard>
       <h3 className="title">{title}</h3>
       <p className="description">{description}</p>
-      <a href={`${link}`}>
-        <p>{link}</p>
-      </a>
+      <p className="link">
+        <a href={`${link}`}>{link}</a>
+      </p>
     </CustomCard>
   );
 };
