@@ -4,6 +4,7 @@ const CustomCard = styled.div`
   background-color: white;
   border-radius: 1rem;
   padding: 2rem;
+  margin: 2rem 0;
 
   .title,
   .description {

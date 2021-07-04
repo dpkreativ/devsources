@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import Button from "./components/button/Button";
 import ResourceCard from "./components/card/ResourceCard";
 import Nav from "./components/nav/Nav";
@@ -20,12 +21,28 @@ const CustomSection = styled.section`
 
   .section-heading {
     color: var(--primary-color);
-    padding: 1rem;
+    padding: 0 1rem;
+    margin-top: 2rem;
   }
 `;
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
+  const [resources, setResources] = useState([]);
+
+  // const baseURL = `https://devsources-api.herokuapp.com/`;
+
+  const getResources = async () => {
+    const data = await axios
+      .get(`https://devsources-api.herokuapp.com/resources`)
+      .then((res) => res.data.allResources.data)
+      .catch((err) => console.log(err));
+    setResources(data);
+  };
+
+  useEffect(() => {
+    getResources();
+  }, []);
 
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -43,11 +60,16 @@ const App = () => {
         </CustomSection>
         <CustomSection>
           <h2 className="section-heading">Suggestions:</h2>
-          <ResourceCard
-            title="FreeCodeCamp"
-            description="A free learning platform for developers"
-            link="https://freecodecamp.org"
-          />
+          {resources.map((resource) => {
+            return (
+              <ResourceCard
+                key={resource.id}
+                title={resource.name}
+                description={resource.description}
+                link={resource.link}
+              />
+            );
+          })}
         </CustomSection>
       </Container>
     </>
