@@ -26,11 +26,11 @@ const CustomSection = styled.section`
   }
 `;
 
+const API_URL = `https://devsources-api.herokuapp.com/`;
+
 const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [resources, setResources] = useState([]);
-
-  // const baseURL = `https://devsources-api.herokuapp.com/`;
 
   const getResources = async () => {
     const data = await axios
