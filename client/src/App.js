@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import Button from "./components/button/Button";
-import ResourceCard from "./components/card/ResourceCard";
 import Nav from "./components/nav/Nav";
 import Modal from "./components/modal/Modal";
+import GetResources from "./components/resources/GetResources";
+import AddResource from "./components/resources/AddResource";
 
 const Container = styled.div`
   padding: 1rem;
@@ -26,23 +26,8 @@ const CustomSection = styled.section`
   }
 `;
 
-const API_URL = `https://devsources-api.herokuapp.com`;
-
 const App = () => {
   const [showModal, setShowModal] = useState(false);
-  const [resources, setResources] = useState([]);
-
-  const getResources = async () => {
-    const data = await axios
-      .get(`${API_URL}/resources`)
-      .then((res) => res.data.allResources.data)
-      .catch((err) => console.log(err));
-    setResources(data);
-  };
-
-  useEffect(() => {
-    getResources();
-  }, []);
 
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -55,21 +40,12 @@ const App = () => {
         <CustomSection>
           <Button onClick={openModal}>Suggest Resource</Button>
           <Modal onClose={openModal} open={showModal}>
-            Hello, testing
+            <AddResource />
           </Modal>
         </CustomSection>
         <CustomSection>
           <h2 className="section-heading">Suggestions:</h2>
-          {resources.map((resource) => {
-            return (
-              <ResourceCard
-                key={resource.id}
-                title={resource.name}
-                description={resource.description}
-                link={resource.link}
-              />
-            );
-          })}
+          <GetResources />
         </CustomSection>
       </Container>
     </>
