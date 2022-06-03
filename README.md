@@ -1,6 +1,6 @@
 # Devsources
 
-A crowd-sourced list of learning resources for developers and designers. Rebuilt with NextJS, and HarperDB.
+Learning resources for developers and designers. Rebuilt with NextJS.
 
 [Inspiration](https://devresourc.es/)
 
