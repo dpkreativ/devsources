@@ -1,6 +1,6 @@
 # Devsources
 
-Learning resources for developers and designers. Rebuilt with NextJS.
+Learning resources for developers and designers.
 
 [Inspiration](https://devresourc.es/)
 
