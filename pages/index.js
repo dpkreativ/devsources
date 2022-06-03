@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>Hello Divi</main>
+      <main>Devsources</main>
     </div>
   );
 }
